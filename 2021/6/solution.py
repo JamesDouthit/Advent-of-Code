@@ -15,7 +15,7 @@ if __name__ == "__main__":
     with open("6input.txt") as f:
         data = f.readline()
     before = list(map(integerize,data.split(",")))
-    for i in range(256):
+    for i in range(80):
         after = iterateDay(before)
         before = after
     print(len(after))
