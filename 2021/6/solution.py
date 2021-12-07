@@ -1,4 +1,5 @@
-import ioutil
+def integerize(my_str):
+    return int(my_str)
 
 def iterateDay(initial_state):
     final_state = initial_state[:]
@@ -11,9 +12,11 @@ def iterateDay(initial_state):
     return final_state
 
 if __name__ == "__main__":
-    with open("input.txt") as f:
+    with open("6input.txt") as f:
         data = f.readline()
-    for i in range(80):
+    before = list(map(integerize,data.split(",")))
+    for i in range(256):
         after = iterateDay(before)
         before = after
+    print(len(after))
     print(after)
