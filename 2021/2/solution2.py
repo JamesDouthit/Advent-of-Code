@@ -1,10 +1,21 @@
+import re
 
 if __name__ == "__main__":
-    with open("1input.txt") as f:
+    horiz = 0
+    depth = 0
+    aim = 0
+    with open("2input.txt") as f:
         data = f.read()
-    measurements_list = list(map(int,data.split("\n")))
-    final_answer = 0
-    for i in range(len(measurements_list)-3):
-        if(sum(measurements_list[i:i+3])<sum(measurements_list[i+1:i+4])):
-            final_answer += 1
-    print(final_answer)
+    commands_list = data.split("\n")
+    for line in commands_list:
+        x = re.search("^(.*) ([1-9]*?)$", line)
+        if x[1] == "forward":
+            horiz += int(x[2])
+            depth += int(x[2])*aim
+        elif x[1] == "down":
+            aim += int(x[2])
+        elif x[1] == "up":
+            aim -= int(x[2])
+        else:
+            print("whoops, got something other than up/down/forw")
+    print("answer is",horiz*depth,"from",horiz,depth)
