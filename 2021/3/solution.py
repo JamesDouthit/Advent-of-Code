@@ -27,7 +27,8 @@ if __name__ == "__main__":
             lcs+="1"
     gamma = int(mcs,2)
     epsilon = int(lcs,2)
-    print(int(mcs,2)*int(lcs,2))
+    print("gamma:",mcs,"=",gamma,"epsilon:",lcs,"=",epsilon)
+    print(gamma*epsilon)
 
 # t0 = time.time()
 # for run in range(1000):
