@@ -2,8 +2,6 @@ import re
 import copy
 
 def explorePaths(paths_list,allowed_dict,visited_dict,current_path,endcounter):
-    # if visited_dict[current_path[-1]] == True:
-    #     return(paths_list)
     new_paths_list = copy.deepcopy(paths_list)
     new_visited_dict = copy.deepcopy(visited_dict)
     new_endings = 0
@@ -45,6 +43,6 @@ if __name__ == "__main__":
     # print("---- about to explorePaths",[],path_record,visited,["start"],0)
     visited["start"] = True
     paths,final_counter = explorePaths([],path_record,visited,["start"],0)
-    print("111`-`-`------ THE ANSWER:",final_counter)
     print(paths)
     print(len(paths))
+    print("111`-`-`------ THE ANSWER:",final_counter)

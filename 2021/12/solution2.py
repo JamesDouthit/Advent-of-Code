@@ -1,32 +1,54 @@
+import re
+import copy
+
+def explorePaths(paths_list,allowed_dict,visited_dict,current_path,endcounter,used_revisit):
+    new_paths_list = copy.deepcopy(paths_list)
+    new_visited_dict = copy.deepcopy(visited_dict)
+    new_endings = 0
+    # print("---- current_path",current_path)
+    if(current_path[-1][0].islower()):
+        new_visited_dict[current_path[-1]] = True
+    if current_path[-1] == "end":
+        endcounter += 1
+        return(new_paths_list.append(current_path),endcounter)
+    for connecting_v in allowed_dict[current_path[-1]]:
+        if not visited_dict[connecting_v]:
+            new_current_path = copy.deepcopy(current_path)
+            new_current_path.append(connecting_v)
+            new_paths, new_ending = explorePaths(paths_list,allowed_dict,new_visited_dict,new_current_path,endcounter,used_revisit)
+            new_paths_list.append(new_paths)
+            new_endings += new_ending
+        elif(not used_revisit and not connecting_v == "start" and not connecting_v == "end"):
+            new_current_path = copy.deepcopy(current_path)
+            new_current_path.append(connecting_v)
+            new_paths, new_ending = explorePaths(paths_list,allowed_dict,new_visited_dict,new_current_path,endcounter,True)
+            new_paths_list.append(new_paths)
+            new_endings += new_ending
+    endcounter += new_endings
+    return(new_paths_list,endcounter)
 
 if __name__ == "__main__":
-    final_scores = []
-    lookup_scores = {')':1,']':2,'}':3,'>':4}
-    lookup_opens = {')':'(',']':'[','}':'{','>':'<'}
-    lookup_closes = {'(':')','[':']','{':'}','<':'>'}
-    with open("10input.txt") as f:
+    final_answer = 0
+    path_record = {}
+    visited = {}
+    with open("12input.txt") as f:
         lines = f.readlines()
     for line in lines:
-        running_score = 0
-        should_include = True
-        stripped_line = list(line.rstrip("\n"))
-        opens_stack = []
-        for char in stripped_line:
-            if(char=='(' or char=='[' or char=='{' or char=='<'):
-                opens_stack.append(char)
-            elif(char==')' or char==']' or char=='}' or char=='>'):
-                open = opens_stack.pop()
-                if(open != lookup_opens[char]):
-                    should_include = False
-                    continue
-            else:
-                print("I messed up my soup")
-        print(opens_stack)
-        if(should_include):
-            while opens_stack:
-                open = opens_stack.pop()
-                running_score *= 5
-                running_score += lookup_scores[lookup_closes[open]]
-            final_scores.append(running_score)
-        
-    print(sorted(final_scores)[int(len(final_scores)/2)])
+        x = re.search("^(.*)-([a-zA-Z]*?)$", line)
+        if (not path_record.get(x[1], None)):
+            visited[x[1]] = False
+            path_record[x[1]] = [x[2]]
+        else:
+            path_record[x[1]].append(x[2])
+        if(not path_record.get(x[2], None)):
+            visited[x[2]] = False
+            path_record[x[2]] = [x[1]]
+        else:
+            path_record[x[2]].append(x[1])
+    # print(path_record)
+    # print("---- about to explorePaths",[],path_record,visited,["start"],0)
+    visited["start"] = True
+    paths,final_counter = explorePaths([],path_record,visited,["start"],0,False)
+    print(paths)
+    print(len(paths))
+    print("111`-`-`------ THE ANSWER:",final_counter)

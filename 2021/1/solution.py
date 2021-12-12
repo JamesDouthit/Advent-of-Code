@@ -8,4 +8,3 @@ if __name__ == "__main__":
         if(measurements_list[i]<measurements_list[i+1]):
             final_answer += 1
     print(final_answer)
-    
