@@ -44,7 +44,7 @@ if __name__ == "__main__":
             if(oxy_list_entry[considering_bit]==most_common_bit):
                 new_oxy_list.append(oxy_list_entry)
         oxy_list = new_oxy_list
-        print(most_common[considering_bit],"was MOST common in pos",considering_bit,"so kept",new_oxy_list,"\n")
+        # print(most_common[considering_bit],"was MOST common in pos",considering_bit,"so kept",new_oxy_list,"\n")
         considering_bit +=1
     considering_bit = 0
     while (len(co2_list)>1 and considering_bit<len(co2_list[0])):
@@ -55,13 +55,13 @@ if __name__ == "__main__":
             if(co2_list_entry[considering_bit]==least_common_bit):
                 new_co2_list.append(co2_list_entry)
         co2_list = new_co2_list
-        print(least_common[considering_bit],"was LEAST common in pos",considering_bit,"so kept",new_co2_list,"\n")
+        # print(least_common[considering_bit],"was LEAST common in pos",considering_bit,"so kept",new_co2_list,"\n")
         considering_bit +=1
     print(oxy_list)
     print(co2_list)
     oxy = int(oxy_list[0],2)
     co2 = int(co2_list[0],2)
-    print("oxy:",oxy_list[0],"=",oxy,"epsilon:",co2_list[0],"=",co2)
+    print("oxy:",oxy_list,"=",oxy,"epsilon:",co2_list,"=",co2)
     print(oxy*co2)
 
 # t0 = time.time()
